@@ -1,0 +1,374 @@
+openapi: 3.1.0
+info:
+  title: PlayCanvas REST Apps Assets API
+  version: 1.0.0-beta
+  description: The PlayCanvas REST API lets you automate the PlayCanvas platform — manage project assets, branches and checkpoints (version control), list scenes, export projects, download self-hostable apps, poll asynchronous jobs, and publish Gaussian splats to the SuperSplat platform. The API is currently in beta; endpoints and responses may change. All access is over HTTPS using a Bearer access token generated on your Organization's Account page.
+  termsOfService: https://playcanvas.com/terms
+  contact:
+    name: PlayCanvas Support
+    url: https://developer.playcanvas.com/user-manual/api/
+  license:
+    name: MIT (engine)
+    url: https://github.com/playcanvas/engine/blob/main/LICENSE
+servers:
+- url: https://playcanvas.com/api
+  description: PlayCanvas REST API (beta)
+security:
+- bearerAuth: []
+tags:
+- name: Assets
+  description: Project asset create/read/update/delete.
+paths:
+  /assets:
+    post:
+      tags:
+      - Assets
+      operationId: createAsset
+      summary: Create asset
+      description: Create a new asset. Currently supports script, html, css, text, shader and json asset types. Expects multipart/form-data. Uses an assets rate limit.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - name
+              - projectId
+              - branchId
+              properties:
+                name:
+                  type: string
+                  description: The name of the asset.
+                projectId:
+                  type: integer
+                  description: The id of the project.
+                branchId:
+                  type: string
+                  description: The id of the branch.
+                parent:
+                  type: integer
+                  description: Parent asset's id.
+                preload:
+                  type: boolean
+                  description: Preload the asset.
+                file:
+                  type: string
+                  format: binary
+                  description: Data to store as the asset file.
+                pow2:
+                  type: boolean
+                  description: Textures only; resize to power-of-two dimensions.
+      responses:
+        '201':
+          description: Asset created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /assets/{assetId}:
+    get:
+      tags:
+      - Assets
+      operationId: getAsset
+      summary: Get asset
+      description: Get the details of a single asset.
+      parameters:
+      - $ref: '#/components/parameters/AssetId'
+      - $ref: '#/components/parameters/BranchIdQueryRequired'
+      responses:
+        '200':
+          description: Asset metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    put:
+      tags:
+      - Assets
+      operationId: updateAsset
+      summary: Update asset
+      description: Update an existing asset's file. Supports script, html, css, text, shader and json types. Expects multipart/form-data. Uses an assets rate limit.
+      parameters:
+      - $ref: '#/components/parameters/AssetId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Data to update the asset file with.
+                pow2:
+                  type: boolean
+                  description: Textures only; resize to power-of-two dimensions.
+      responses:
+        '200':
+          description: Asset updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      tags:
+      - Assets
+      operationId: deleteAsset
+      summary: Delete asset
+      description: Permanently delete an asset from a branch. Deletion is unrecoverable unless a checkpoint was taken.
+      parameters:
+      - $ref: '#/components/parameters/AssetId'
+      - $ref: '#/components/parameters/BranchIdQueryRequired'
+      responses:
+        '200':
+          description: Asset deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /assets/{assetId}/file/{filename}:
+    get:
+      tags:
+      - Assets
+      operationId: getAssetFile
+      summary: Get asset file
+      description: Fetch a specific asset file variant by filename for a branch.
+      parameters:
+      - $ref: '#/components/parameters/AssetId'
+      - name: filename
+        in: path
+        required: true
+        description: The filename of the asset.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/BranchIdQueryRequired'
+      responses:
+        '200':
+          description: Raw file contents.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /projects/{projectId}/assets:
+    get:
+      tags:
+      - Assets
+      operationId: listAssets
+      summary: List assets
+      description: List all assets in a project for a specific branch (paginated).
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/BranchIdQueryRequired'
+      - name: skip
+        in: query
+        description: Number of assets to skip. Defaults to 0.
+        schema:
+          type: integer
+          default: 0
+      - name: limit
+        in: query
+        description: Maximum number of assets to list. Defaults to 16. Maximum 100000.
+        schema:
+          type: integer
+          default: 16
+          maximum: 100000
+      responses:
+        '200':
+          description: Paginated list of assets.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Asset'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Requests allowed per minute.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests this minute.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AssetId:
+      name: assetId
+      in: path
+      required: true
+      description: The id of the asset.
+      schema:
+        type: integer
+    BranchIdQueryRequired:
+      name: branchId
+      in: query
+      required: true
+      description: The id of the branch.
+      schema:
+        type: string
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
+  schemas:
+    Asset:
+      type: object
+      properties:
+        id:
+          type: integer
+        modifiedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        state:
+          type: string
+          enum:
+          - ready
+          - processing
+          - error
+        name:
+          type: string
+        type:
+          type: string
+        scope:
+          type: object
+          properties:
+            type:
+              type: string
+            id:
+              type: integer
+        source:
+          type: boolean
+        sourceId:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        preload:
+          type: boolean
+        data:
+          type: object
+        file:
+          type: object
+          properties:
+            hash:
+              type: string
+            filename:
+              type: string
+            size:
+              type: integer
+            url:
+              type: string
+        parent:
+          type: integer
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        total:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Access token generated on the Organization Account page, sent as `Authorization: Bearer {accessToken}`.'

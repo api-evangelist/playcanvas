@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  title: PlayCanvas REST Apps RateLimits API
+  version: 1.0.0-beta
+  description: The PlayCanvas REST API lets you automate the PlayCanvas platform — manage project assets, branches and checkpoints (version control), list scenes, export projects, download self-hostable apps, poll asynchronous jobs, and publish Gaussian splats to the SuperSplat platform. The API is currently in beta; endpoints and responses may change. All access is over HTTPS using a Bearer access token generated on your Organization's Account page.
+  termsOfService: https://playcanvas.com/terms
+  contact:
+    name: PlayCanvas Support
+    url: https://developer.playcanvas.com/user-manual/api/
+  license:
+    name: MIT (engine)
+    url: https://github.com/playcanvas/engine/blob/main/LICENSE
+servers:
+- url: https://playcanvas.com/api
+  description: PlayCanvas REST API (beta)
+security:
+- bearerAuth: []
+tags:
+- name: RateLimits
+  description: Account rate-limit inspection.
+paths:
+  /ratelimits:
+    get:
+      tags:
+      - RateLimits
+      operationId: getRateLimits
+      summary: Get rate limits
+      description: Return the account's current rate-limit configuration.
+      responses:
+        '200':
+          description: Rate-limit configuration.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+  responses:
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Requests allowed per minute.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests this minute.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Access token generated on the Organization Account page, sent as `Authorization: Bearer {accessToken}`.'

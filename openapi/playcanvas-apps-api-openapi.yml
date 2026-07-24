@@ -1,0 +1,270 @@
+openapi: 3.1.0
+info:
+  title: PlayCanvas REST Apps API
+  version: 1.0.0-beta
+  description: The PlayCanvas REST API lets you automate the PlayCanvas platform — manage project assets, branches and checkpoints (version control), list scenes, export projects, download self-hostable apps, poll asynchronous jobs, and publish Gaussian splats to the SuperSplat platform. The API is currently in beta; endpoints and responses may change. All access is over HTTPS using a Bearer access token generated on your Organization's Account page.
+  termsOfService: https://playcanvas.com/terms
+  contact:
+    name: PlayCanvas Support
+    url: https://developer.playcanvas.com/user-manual/api/
+  license:
+    name: MIT (engine)
+    url: https://github.com/playcanvas/engine/blob/main/LICENSE
+servers:
+- url: https://playcanvas.com/api
+  description: PlayCanvas REST API (beta)
+security:
+- bearerAuth: []
+tags:
+- name: Apps
+  description: Published applications and self-hostable app downloads.
+paths:
+  /apps/download:
+    post:
+      tags:
+      - Apps
+      operationId: downloadApp
+      summary: Download app
+      description: Start a job to package an app for self-hosting. Returns job details; poll GET /jobs/{id} until status is complete or error, then read the download URL from the job data. Uses a strict rate limit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppDownloadRequest'
+      responses:
+        '201':
+          description: Download job started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /projects/{projectId}/app:
+    get:
+      tags:
+      - Apps
+      operationId: getPrimaryApp
+      summary: Get primary app
+      description: Get the primary published app of a project.
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: Primary app metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /projects/{projectId}/apps:
+    get:
+      tags:
+      - Apps
+      operationId: getProjectApps
+      summary: Get project apps
+      description: List all the published apps of a project.
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: List of published apps.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/App'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /apps/{id}:
+    get:
+      tags:
+      - Apps
+      operationId: getApp
+      summary: Get app
+      description: Get a published app by id.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the app.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: App metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Requests allowed per minute.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests this minute.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - running
+          - complete
+          - error
+        messages:
+          type: array
+          items:
+            type: string
+        data:
+          type: object
+          description: Contents depend on the job type.
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        total:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+    App:
+      type: object
+      properties:
+        id:
+          type: integer
+        project_id:
+          type: integer
+        owner_id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        release_notes:
+          type: string
+        thumbnails:
+          type: object
+          properties:
+            s:
+              type: string
+            m:
+              type: string
+            l:
+              type: string
+            xl:
+              type: string
+        size:
+          type: integer
+        views:
+          type: integer
+        completed_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        url:
+          type: string
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Access token generated on the Organization Account page, sent as `Authorization: Bearer {accessToken}`.'

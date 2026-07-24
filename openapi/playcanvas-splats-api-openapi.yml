@@ -1,0 +1,176 @@
+openapi: 3.1.0
+info:
+  title: PlayCanvas REST Apps Splats API
+  version: 1.0.0-beta
+  description: The PlayCanvas REST API lets you automate the PlayCanvas platform — manage project assets, branches and checkpoints (version control), list scenes, export projects, download self-hostable apps, poll asynchronous jobs, and publish Gaussian splats to the SuperSplat platform. The API is currently in beta; endpoints and responses may change. All access is over HTTPS using a Bearer access token generated on your Organization's Account page.
+  termsOfService: https://playcanvas.com/terms
+  contact:
+    name: PlayCanvas Support
+    url: https://developer.playcanvas.com/user-manual/api/
+  license:
+    name: MIT (engine)
+    url: https://github.com/playcanvas/engine/blob/main/LICENSE
+servers:
+- url: https://playcanvas.com/api
+  description: PlayCanvas REST API (beta)
+security:
+- bearerAuth: []
+tags:
+- name: Splats
+  description: SuperSplat Gaussian-splat publishing.
+paths:
+  /upload/signed-url:
+    post:
+      tags:
+      - Splats
+      operationId: getSplatSignedUrl
+      summary: Get signed S3 upload URL
+      description: Request a signed AWS S3 URL to upload a splat file. Step 1 of the SuperSplat publish flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - fileName
+              properties:
+                fileName:
+                  type: string
+                  example: scene.ply
+      responses:
+        '200':
+          description: Signed URL and S3 key.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signedUrl:
+                    type: string
+                  s3Key:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /splats/publish:
+    post:
+      tags:
+      - Splats
+      operationId: publishSplat
+      summary: Publish splat
+      description: Start processing of an uploaded splat to publish it to the SuperSplat platform. Step 3 of the publish flow (after uploading to the signed S3 URL).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - s3Key
+              - title
+              - format
+              properties:
+                s3Key:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                listed:
+                  type: boolean
+                settings:
+                  type: object
+                  description: SuperSplat Experience Settings (camera
+                  background: null
+                  animTracks).: null
+                format:
+                  type: string
+                  enum:
+                  - compressed.ply
+                  - sog
+      responses:
+        '200':
+          description: Published splat data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Splat'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    Splat:
+      type: object
+      properties:
+        id:
+          type: string
+        hash:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        format:
+          type: string
+          enum:
+          - compressed.ply
+          - sog
+        version:
+          type: string
+        release_notes:
+          type: string
+        thumbnails:
+          type: integer
+        size:
+          type: integer
+        views:
+          type: integer
+        comments:
+          type: integer
+        starred:
+          type: integer
+        listed:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+  responses:
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Requests allowed per minute.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests this minute.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Access token generated on the Organization Account page, sent as `Authorization: Bearer {accessToken}`.'

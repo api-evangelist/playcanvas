@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: PlayCanvas REST Apps Projects API
+  version: 1.0.0-beta
+  description: The PlayCanvas REST API lets you automate the PlayCanvas platform — manage project assets, branches and checkpoints (version control), list scenes, export projects, download self-hostable apps, poll asynchronous jobs, and publish Gaussian splats to the SuperSplat platform. The API is currently in beta; endpoints and responses may change. All access is over HTTPS using a Bearer access token generated on your Organization's Account page.
+  termsOfService: https://playcanvas.com/terms
+  contact:
+    name: PlayCanvas Support
+    url: https://developer.playcanvas.com/user-manual/api/
+  license:
+    name: MIT (engine)
+    url: https://github.com/playcanvas/engine/blob/main/LICENSE
+servers:
+- url: https://playcanvas.com/api
+  description: PlayCanvas REST API (beta)
+security:
+- bearerAuth: []
+tags:
+- name: Projects
+  description: Project-level operations.
+paths:
+  /projects/{projectId}/export:
+    post:
+      tags:
+      - Projects
+      operationId: exportProject
+      summary: Export project
+      description: Start a job to export the entire project as a ZIP. Returns job details; poll GET /jobs/{id} until complete, then read the download URL from the job data. Uses a strict rate limit.
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                branch_id:
+                  type: string
+                  description: The id of the branch; defaults to the main branch.
+      responses:
+        '201':
+          description: Export job started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Requests allowed per minute.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests this minute.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - running
+          - complete
+          - error
+        messages:
+          type: array
+          items:
+            type: string
+        data:
+          type: object
+          description: Contents depend on the job type.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Access token generated on the Organization Account page, sent as `Authorization: Bearer {accessToken}`.'
