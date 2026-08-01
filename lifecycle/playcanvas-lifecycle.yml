@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.playcanvas.com/user-manual/api/ + https://github.com/playcanvas/engine/releases
+versioning:
+  scheme: none-explicit
+  api_status: beta
+  docs: https://developer.playcanvas.com/user-manual/api/
+  notes: >-
+    The REST API is explicitly in beta — "we may change certain endpoints and
+    API responses." There is no version prefix in the base path (/api). The
+    PlayCanvas engine itself is versioned with semver and published on npm and
+    GitHub releases (2.20.6 at time of enrichment).
+engine_releases: https://github.com/playcanvas/engine/releases
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No formal deprecation policy or RFC 8594 Sunset/Deprecation header support documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_notes: No public status page found (status.playcanvas.com does not resolve).
+deprecated_operations: []

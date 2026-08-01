@@ -1,0 +1,34 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/playcanvas-rest-openapi.yml + https://developer.playcanvas.com/user-manual/api/
+format: simple-json
+envelope:
+  shape: '{ "error": "message" }'
+  description: >-
+    On error the API returns a JSON object with a single `error` string field
+    and the appropriate HTTP status code. It does not use RFC 9457
+    application/problem+json.
+problems:
+  - status: 400
+    title: Bad Request
+    remediation: Invalid request payload — check required fields (e.g. branch name already exists, empty description).
+    seen_on: [createBranch, createCheckpoint]
+  - status: 401
+    title: Unauthorized
+    remediation: Missing or invalid Bearer access token. Generate a token on your Organization Account page and send it in the Authorization header.
+    seen_on: [all operations]
+  - status: 403
+    title: Forbidden
+    remediation: The token is valid but lacks permission for this project/resource.
+    seen_on: [all operations]
+  - status: 404
+    title: Not Found
+    remediation: The referenced project, branch, asset, app, checkpoint, scene, or job does not exist or is not visible to this token.
+    seen_on: [all operations]
+  - status: 429
+    title: Too Many Requests
+    remediation: >-
+      Rate limit exceeded. Inspect X-RateLimit-Limit / X-RateLimit-Remaining /
+      X-RateLimit-Reset headers and wait for the window (UTC epoch seconds in
+      Reset) before retrying.
+    seen_on: [all operations]

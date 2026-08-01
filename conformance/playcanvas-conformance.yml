@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/playcanvas-rest-openapi.yml + https://developer.playcanvas.com/user-manual/api/
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: Uses opaque Bearer access tokens, not OAuth 2.0 flows.
+  - id: oidc
+    conforms: false
+  - id: rfc6750-bearer-token
+    conforms: true
+    evidence: Authorization header uses the Bearer scheme (RFC 6750-style).
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: 'Errors use a simple {"error": "message"} envelope, not application/problem+json.'
+  - id: rfc6585-429
+    conforms: true
+    evidence: Returns 429 Too Many Requests with X-RateLimit-* headers.
+  - id: pagination
+    conforms: true
+    evidence: Offset (skip/limit/sort/order) and cursor (hasMore) pagination documented.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency-key mechanism; async job polling used for expensive mutations.
+  - id: json-api
+    conforms: false
+  - id: rest
+    conforms: true
+    evidence: Resource-oriented JSON over HTTPS with standard verbs (GET/POST/PUT/DELETE).

@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: PlayCanvas
+providerId: playcanvas
+generated: '2026-07-20'
+method: searched
+created: '2026-07-20'
+modified: '2026-07-20'
+tags:
+  - Rate Limiting
+  - 3D
+description: >-
+  PlayCanvas REST API rate limits are enforced per account minute with three
+  classes (normal, strict, assets), differing for free vs paid accounts. Inspect
+  live limits at https://playcanvas.com/api/ratelimits.
+sources:
+  - https://developer.playcanvas.com/user-manual/api/
+headers:
+  limit: X-RateLimit-Limit
+  remaining: X-RateLimit-Remaining
+  reset: X-RateLimit-Reset
+responseCodes:
+  throttled: 429
+limits:
+  - name: Normal (free)
+    scope: account
+    metric: requests_per_minute
+    limit: 120
+    timeFrame: minute
+  - name: Normal (paid)
+    scope: account
+    metric: requests_per_minute
+    limit: 240
+    timeFrame: minute
+  - name: Strict (free)
+    scope: account
+    metric: requests_per_minute
+    limit: 5
+    timeFrame: minute
+    applies_to: [downloadApp, exportProject]
+  - name: Strict (paid)
+    scope: account
+    metric: requests_per_minute
+    limit: 10
+    timeFrame: minute
+    applies_to: [downloadApp, exportProject]
+  - name: Assets (free)
+    scope: account
+    metric: requests_per_minute
+    limit: 60
+    timeFrame: minute
+    applies_to: [createAsset, updateAsset]
+  - name: Assets (paid)
+    scope: account
+    metric: requests_per_minute
+    limit: 120
+    timeFrame: minute
+    applies_to: [createAsset, updateAsset]

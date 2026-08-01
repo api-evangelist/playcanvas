@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.playcanvas.com/ + npm (@playcanvas/*)
+families:
+  - name: Web Components
+    description: >-
+      Declarative PlayCanvas 3D scenes as HTML custom elements — drop <pc-app>,
+      <pc-entity>, <pc-camera>, etc. into plain HTML with no build step.
+    loader: "@playcanvas/web-components"
+    install: npm install playcanvas @playcanvas/web-components
+    docs: https://developer.playcanvas.com/user-manual/web-components/
+    examples: https://playcanvas.github.io/web-components/examples/
+    repository: https://github.com/playcanvas/web-components
+  - name: React components
+    description: Declarative JSX components and hooks for building PlayCanvas scenes in React.
+    loader: "@playcanvas/react"
+    install: npm install @playcanvas/react playcanvas
+    docs: https://developer.playcanvas.com/user-manual/react/
+    repository: https://github.com/playcanvas/react
+  - name: PCUI
+    description: >-
+      User-interface component library (the framework behind the PlayCanvas
+      Editor and tools) for building web UIs; includes a React package and PCUI
+      Graph for node-based graph editors.
+    loader: "@playcanvas/pcui"
+    install: npm install @playcanvas/pcui
+    docs: https://developer.playcanvas.com/user-manual/pcui/
+    repository: https://github.com/playcanvas/pcui
+notes: >-
+  These are client-side/embeddable UI + scene component libraries, distinct from
+  the server-side/engine SDKs catalogued in packages/. The core engine can also
+  be loaded from a CDN.

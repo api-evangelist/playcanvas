@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/playcanvas-rest-openapi.yml
+skills:
+  - file: playcanvas-branch-and-checkpoint.md
+    name: Branch and checkpoint a PlayCanvas project
+    api: openapi/playcanvas-rest-openapi.yml
+    operations: [listBranches, createBranch, createCheckpoint, getJob, getCheckpoint]
+  - file: playcanvas-manage-assets.md
+    name: Manage PlayCanvas project assets
+    api: openapi/playcanvas-rest-openapi.yml
+    operations: [listAssets, getAsset, getAssetFile, createAsset, updateAsset, deleteAsset]
+  - file: playcanvas-export-and-download.md
+    name: Export a project and download a self-hostable app
+    api: openapi/playcanvas-rest-openapi.yml
+    operations: [listScenes, downloadApp, exportProject, getJob, getPrimaryApp]

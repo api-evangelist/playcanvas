@@ -1,0 +1,17 @@
+generated: '2026-07-20'
+method: searched
+source: https://github.com/playcanvas/engine/releases
+scheme: semver
+subject: PlayCanvas Engine
+current_version: 2.20.6
+notes: >-
+  The REST API is in beta and does not publish a dated per-endpoint changelog;
+  the versioned, dated changelog is the PlayCanvas engine's GitHub Releases feed
+  (semver). The blog (https://blog.playcanvas.com) covers platform/editor
+  release announcements. Recent engine version at enrichment time: 2.20.6.
+entries: []
+sources:
+  - url: https://github.com/playcanvas/engine/releases
+    type: engine-releases
+  - url: https://blog.playcanvas.com
+    type: blog

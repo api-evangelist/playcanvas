@@ -1,0 +1,32 @@
+{
+  "provider": "playcanvas",
+  "sources": [
+    "playcanvas-apps-api-openapi.yml",
+    "playcanvas-assets-api-openapi.yml",
+    "playcanvas-branches-api-openapi.yml",
+    "playcanvas-checkpoints-api-openapi.yml",
+    "playcanvas-jobs-api-openapi.yml",
+    "playcanvas-projects-api-openapi.yml",
+    "playcanvas-ratelimits-api-openapi.yml",
+    "playcanvas-scenes-api-openapi.yml",
+    "playcanvas-splats-api-openapi.yml"
+  ],
+  "outputs": [
+    "playcanvas-apps-api-openapi.yml",
+    "playcanvas-assets-api-openapi.yml",
+    "playcanvas-branches-api-openapi.yml",
+    "playcanvas-checkpoints-api-openapi.yml",
+    "playcanvas-jobs-api-openapi.yml",
+    "playcanvas-projects-api-openapi.yml",
+    "playcanvas-ratelimits-api-openapi.yml",
+    "playcanvas-scenes-api-openapi.yml",
+    "playcanvas-splats-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "playcanvas-apps-api-openapi.yml: dangling $ref: #/components/schemas/AppDownloadRequest"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

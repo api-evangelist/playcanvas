@@ -1,8 +1,15 @@
 aid: playcanvas
 name: PlayCanvas
-description: PlayCanvas is a company surfaced as a portfolio company of 500-global, techstars and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  PlayCanvas is an open-source WebGL/WebGPU 3D engine and cloud platform for
+  building games, product configurators, and interactive 3D experiences that run
+  in any web browser. It offers a browser-based collaborative Editor, a
+  standalone engine on npm/CDN, React components, and Web Components, plus the
+  SuperSplat toolchain for Gaussian-splat capture and publishing. PlayCanvas
+  exposes a REST API (beta) for automating the platform — managing project
+  assets, version-control branches and checkpoints, listing scenes, exporting
+  projects, downloading self-hostable apps, polling asynchronous jobs, and
+  publishing splats — authenticated with Bearer access tokens over HTTPS.
 url: https://raw.githubusercontent.com/api-evangelist/playcanvas/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,17 +18,295 @@ x-backed-by:
 - techstars
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+image: https://playcanvas.com/static-assets/images/social/playcanvas.png
 tags:
 - Company
-apis: []
+- 3D
+- Game Engine
+- WebGL
+- WebGPU
+- Graphics
+- Developer Tools
+- Gaussian Splatting
+- Rendering
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: playcanvas:playcanvas-apps-api
+  name: PlayCanvas Apps API
+  description: Published applications and self-hostable app downloads.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Apps
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-apps-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-assets-api
+  name: PlayCanvas Assets API
+  description: Project asset create/read/update/delete.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-assets-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-branches-api
+  name: PlayCanvas Branches API
+  description: Version-control branches.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Branches
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-branches-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-checkpoints-api
+  name: PlayCanvas Checkpoints API
+  description: Branch checkpoints (snapshots).
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Checkpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-checkpoints-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-jobs-api
+  name: PlayCanvas Jobs API
+  description: Asynchronous job polling.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-projects-api
+  name: PlayCanvas Projects API
+  description: Project-level operations.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-projects-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-ratelimits-api
+  name: PlayCanvas RateLimits API
+  description: Account rate-limit inspection.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - RateLimits
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-ratelimits-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-scenes-api
+  name: PlayCanvas Scenes API
+  description: Project scenes.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Scenes
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-scenes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-splats-api
+  name: PlayCanvas Splats API
+  description: SuperSplat Gaussian-splat publishing.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Splats
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-splats-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
 common:
 - type: Website
   url: https://playcanvas.com
+- type: DeveloperPortal
+  url: https://developer.playcanvas.com
+- type: Documentation
+  url: https://developer.playcanvas.com/user-manual/
+- type: APIReference
+  url: https://api.playcanvas.com
+- type: GettingStarted
+  url: https://developer.playcanvas.com/user-manual/getting-started/
+- type: Blog
+  url: https://blog.playcanvas.com
+- type: GitHubOrganization
+  url: https://github.com/playcanvas
+- type: Support
+  url: https://forum.playcanvas.com
+- type: Pricing
+  url: https://playcanvas.com/plans
+- type: SignUp
+  url: https://login.playcanvas.com/signup
+- type: TermsOfService
+  url: https://playcanvas.com/terms
+- type: PrivacyPolicy
+  url: https://playcanvas.com/privacy
+- type: Authentication
+  url: authentication/playcanvas-authentication.yml
+- type: DomainSecurity
+  url: security/playcanvas-domain-security.yml
+- type: Packages
+  url: packages/playcanvas-packages.yml
+- type: SDKs
+  url: packages/playcanvas-packages.yml
+- type: Components
+  url: components/playcanvas-components.yml
+- type: WellKnown
+  url: well-known/playcanvas-well-known.yml
+- type: MCPServer
+  url: mcp/playcanvas-mcp.yml
+- type: LLMsTxt
+  url: llms/playcanvas-llms.txt
+- type: Conformance
+  url: conformance/playcanvas-conformance.yml
+- type: Lifecycle
+  url: lifecycle/playcanvas-lifecycle.yml
+- type: ChangeLog
+  url: changelog/playcanvas-changelog.yml
+- type: RateLimits
+  url: rate-limits/playcanvas-rate-limits.yml
+- type: Conventions
+  url: conventions/playcanvas-conventions.yml
+- type: ErrorCatalog
+  url: errors/playcanvas-problem-types.yml
+- type: DataModel
+  url: data-model/playcanvas-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1

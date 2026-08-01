@@ -1,0 +1,58 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.npmjs.com/~playcanvas + https://github.com/playcanvas
+packages:
+  - language: javascript
+    registry: npm
+    name: playcanvas
+    url: https://www.npmjs.com/package/playcanvas
+    install: npm install playcanvas
+    description: Open-source WebGL/WebGPU 3D engine for the web.
+    repository: https://github.com/playcanvas/engine
+    version: 2.20.6
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@playcanvas/react"
+    url: https://www.npmjs.com/package/@playcanvas/react
+    install: npm install @playcanvas/react playcanvas
+    description: A React renderer for PlayCanvas — build interactive 3D applications using React.
+    repository: https://github.com/playcanvas/react
+    version: 0.11.5
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@playcanvas/web-components"
+    url: https://www.npmjs.com/package/@playcanvas/web-components
+    install: npm install playcanvas @playcanvas/web-components
+    description: Web Components for the PlayCanvas Engine — declarative 3D scenes in plain HTML.
+    repository: https://github.com/playcanvas/web-components
+    version: 0.8.1
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@playcanvas/pcui"
+    url: https://www.npmjs.com/package/@playcanvas/pcui
+    install: npm install @playcanvas/pcui
+    description: User interface component library for the web used by the Editor and tools.
+    repository: https://github.com/playcanvas/pcui
+    version: 6.1.4
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@playcanvas/observer"
+    url: https://www.npmjs.com/package/@playcanvas/observer
+    install: npm install @playcanvas/observer
+    description: Generic implementation of the observer pattern used across PlayCanvas tooling.
+    repository: https://github.com/playcanvas/observer
+    version: 1.7.1
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@playcanvas/editor-api"
+    url: https://www.npmjs.com/package/@playcanvas/editor-api
+    install: npm install @playcanvas/editor-api
+    description: The PlayCanvas Editor API for scripting the browser-based editor.
+    repository: https://github.com/playcanvas/editor-api
+    version: 1.1.28
+    official: true

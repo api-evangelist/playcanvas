@@ -1,0 +1,92 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/playcanvas-rest-openapi.yml
+entities:
+  - name: Project
+    id_field: project_id
+    description: The top-level container. Owns branches, assets, scenes, and apps.
+  - name: Branch
+    id_field: id
+    description: A version-control branch of a project. Owns checkpoints.
+  - name: Checkpoint
+    id_field: id
+    description: A snapshot of a branch that can be restored or branched from.
+  - name: Asset
+    id_field: id
+    description: A project asset (script, html, css, text, shader, json, texture, model, etc.), scoped to a branch, optionally nested under a parent asset.
+  - name: Scene
+    id_field: id
+    description: A scene within a project on a branch; the first scene of an app is its initial scene.
+  - name: App
+    id_field: id
+    description: A published application built from one or more scenes of a project.
+  - name: Job
+    id_field: id
+    description: An asynchronous operation (download, export, checkpoint create) polled to completion.
+  - name: Splat
+    id_field: id
+    description: A published Gaussian splat on the SuperSplat platform.
+  - name: User
+    id_field: id
+    description: The user who created a branch or checkpoint.
+relationships:
+  - from: Branch
+    to: Project
+    type: belongs_to
+    via: projectId
+  - from: Asset
+    to: Project
+    type: belongs_to
+    via: scope.id/projectId
+  - from: Asset
+    to: Branch
+    type: belongs_to
+    via: branchId
+  - from: Asset
+    to: Asset
+    type: belongs_to
+    via: parent
+  - from: Scene
+    to: Project
+    type: belongs_to
+    via: projectId
+  - from: App
+    to: Project
+    type: belongs_to
+    via: project_id
+  - from: Checkpoint
+    to: Branch
+    type: belongs_to
+    via: branch_id
+  - from: Branch
+    to: Checkpoint
+    type: has_one
+    via: latestCheckpointId
+  - from: Branch
+    to: User
+    type: belongs_to
+    via: user.id
+  - from: Checkpoint
+    to: User
+    type: belongs_to
+    via: user.id
+  - from: Project
+    to: App
+    type: has_many
+    via: /projects/{projectId}/apps
+  - from: Project
+    to: Branch
+    type: has_many
+    via: /projects/{projectId}/branches
+  - from: Project
+    to: Asset
+    type: has_many
+    via: /projects/{projectId}/assets
+  - from: Project
+    to: Scene
+    type: has_many
+    via: /projects/{projectId}/scenes
+  - from: Branch
+    to: Checkpoint
+    type: has_many
+    via: /branches/{branchId}/checkpoints

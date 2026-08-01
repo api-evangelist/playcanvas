@@ -1,0 +1,20 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for PlayCanvas REST API
+  version: 1.0.0
+extends: openapi/playcanvas-rest-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 3
+      x-api-status: beta
+      x-async-job-pattern: >-
+        downloadApp, exportProject and createCheckpoint are asynchronous — they
+        return a Job; poll getJob until status is complete|error.
+  - target: $.info
+    update:
+      x-idempotency-supported: false
+      x-rate-limit-classes: [normal, strict, assets]
+  - target: $.components.securitySchemes.bearerAuth
+    update:
+      x-token-source: https://playcanvas.com Organization Account page (API Tokens)

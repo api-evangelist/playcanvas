@@ -1,0 +1,52 @@
+generated: '2026-07-20'
+method: searched
+source: https://developer.playcanvas.com/user-manual/api/
+authentication:
+  style: bearer-token
+  header: 'Authorization: Bearer {accessToken}'
+  notes: Opaque access tokens generated/revoked on the Organization Account page. HTTPS only. See authentication/playcanvas-authentication.yml.
+idempotency:
+  supported: false
+  notes: >-
+    PlayCanvas does not document an idempotency-key header. Mutating operations
+    that are expensive/asynchronous (app download, project export, checkpoint
+    create) instead return a job you poll, which naturally guards against
+    duplicate side effects.
+pagination:
+  styles:
+    - name: offset
+      params: [skip, limit, sort, order]
+      response_fields: [result, pagination.limit, pagination.skip, pagination.total]
+      used_by: [listAssets, getProjectApps]
+      notes: order is 1 (ascending) or -1 (descending); limit/skip control the window.
+    - name: cursor
+      params: [skip, limit]
+      response_fields: [result, pagination.hasMore]
+      used_by: [listBranches, listCheckpoints]
+      notes: >-
+        When pagination.hasMore is true, pass ?skip={lastId} (last branch id /
+        checkpoint id received) to get the next page. listCheckpoints limit
+        cannot exceed 50.
+request_format:
+  json: Content-Type application/json for POST/PUT/DELETE bodies.
+  multipart: createAsset and updateAsset expect multipart/form-data (file uploads).
+error_envelope:
+  shape: '{ "error": "message" }'
+  see: errors/playcanvas-problem-types.yml
+rate_limit_signaling:
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  classes:
+    normal: { free: 120/min, paid: 240/min }
+    strict: { free: 5/min, paid: 10/min, applies_to: [downloadApp, exportProject] }
+    assets: { free: 60/min, paid: 120/min, applies_to: [createAsset, updateAsset] }
+  inspect_endpoint: https://playcanvas.com/api/ratelimits
+  see: lifecycle/playcanvas-lifecycle.yml
+versioning:
+  scheme: none-explicit
+  status: beta
+  notes: The REST API is in beta; endpoints and responses may change. No version prefix in the path (base is /api).
+async_jobs:
+  pattern: >-
+    Long-running operations (downloadApp, exportProject, createCheckpoint)
+    return a Job (status running|complete|error); poll GET /jobs/{id} until
+    complete, then read the result URL/record from job.data.
