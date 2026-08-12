@@ -249,6 +249,8 @@ apis:
   - type: Conventions
     url: conventions/playcanvas-conventions.yml
 common:
+- type: Overlay
+  url: overlays/playcanvas-rest-overlay.yaml
 - type: Website
   url: https://playcanvas.com
 - type: DeveloperPortal
