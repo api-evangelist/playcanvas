@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Apps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download app",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://playcanvas.com/api/apps/download",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a job to package an app for self-hosting. Returns job details; poll GET /jobs/{id} until status is complete or error, then read the download URL from the job data. Uses a strict rate limit."
+        },
+        {
+          "info": {
+            "name": "Get primary app",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/projects/:projectId/app",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the project."
+              }
+            ]
+          },
+          "docs": "Get the primary published app of a project."
+        },
+        {
+          "info": {
+            "name": "Get project apps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/projects/:projectId/apps",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the project."
+              }
+            ]
+          },
+          "docs": "List all the published apps of a project."
+        },
+        {
+          "info": {
+            "name": "Get app",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/apps/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the app."
+              }
+            ]
+          },
+          "docs": "Get a published app by id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

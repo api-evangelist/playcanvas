@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps Branches API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Branches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://playcanvas.com/api/branches",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new branch from an existing branch and optionally a specific checkpoint."
+        },
+        {
+          "info": {
+            "name": "List branches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/projects/:projectId/branches",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the project."
+              }
+            ]
+          },
+          "docs": "List all open branches for a project. Cursor pagination: when pagination.hasMore is true, pass ?skip={lastBranchId} for the next page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps RateLimits API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RateLimits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get rate limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/ratelimits"
+          },
+          "docs": "Return the account's current rate-limit configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

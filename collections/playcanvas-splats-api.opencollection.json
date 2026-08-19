@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps Splats API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Splats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get signed S3 upload URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://playcanvas.com/api/upload/signed-url",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a signed AWS S3 URL to upload a splat file. Step 1 of the SuperSplat publish flow."
+        },
+        {
+          "info": {
+            "name": "Publish splat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://playcanvas.com/api/splats/publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start processing of an uploaded splat to publish it to the SuperSplat platform. Step 3 of the publish flow (after uploading to the signed S3 URL)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

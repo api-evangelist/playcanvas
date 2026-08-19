@@ -2,77 +2,81 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/playcanvas-rest-openapi.yml
-notes: >-
-  No official hosted/remote PlayCanvas MCP server was found (no
-  @playcanvas/mcp package, no entry in public MCP registries, no docs mention).
-  This is a DERIVED candidate tool list — one tool per REST operation — as a
-  starting point for an MCP server over the PlayCanvas REST API. Bearer access
-  token required.
+notes: No official hosted/remote PlayCanvas MCP server was found (no @playcanvas/mcp package, no entry
+  in public MCP registries, no docs mention). This is a DERIVED candidate tool list — one tool per REST
+  operation — as a starting point for an MCP server over the PlayCanvas REST API. Bearer access token
+  required.
 server:
   name: playcanvas
   transport: http
   url: null
 tools:
-  - name: download_app
-    description: Start a job to package an app for self-hosting.
-    source_operation: openapi/playcanvas-rest-openapi.yml#downloadApp
-  - name: get_primary_app
-    description: Get the primary published app of a project.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getPrimaryApp
-  - name: get_project_apps
-    description: List all published apps of a project.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getProjectApps
-  - name: get_app
-    description: Get a published app by id.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getApp
-  - name: create_asset
-    description: Create a new script/html/css/text/shader/json asset.
-    source_operation: openapi/playcanvas-rest-openapi.yml#createAsset
-  - name: get_asset
-    description: Get the details of a single asset.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getAsset
-  - name: get_asset_file
-    description: Fetch an asset file variant by filename.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getAssetFile
-  - name: list_assets
-    description: List all assets in a project branch (paginated).
-    source_operation: openapi/playcanvas-rest-openapi.yml#listAssets
-  - name: update_asset
-    description: Update an existing asset's file.
-    source_operation: openapi/playcanvas-rest-openapi.yml#updateAsset
-  - name: delete_asset
-    description: Permanently delete an asset from a branch.
-    source_operation: openapi/playcanvas-rest-openapi.yml#deleteAsset
-  - name: create_branch
-    description: Create a new branch from an existing branch/checkpoint.
-    source_operation: openapi/playcanvas-rest-openapi.yml#createBranch
-  - name: list_branches
-    description: List all open branches for a project.
-    source_operation: openapi/playcanvas-rest-openapi.yml#listBranches
-  - name: create_checkpoint
-    description: Start a job to create a branch checkpoint.
-    source_operation: openapi/playcanvas-rest-openapi.yml#createCheckpoint
-  - name: get_checkpoint
-    description: Get a checkpoint by id.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getCheckpoint
-  - name: list_checkpoints
-    description: List checkpoints for a branch, newest first.
-    source_operation: openapi/playcanvas-rest-openapi.yml#listCheckpoints
-  - name: get_job
-    description: Poll an asynchronous job by id.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getJob
-  - name: export_project
-    description: Start a job to export a project as a ZIP.
-    source_operation: openapi/playcanvas-rest-openapi.yml#exportProject
-  - name: list_scenes
-    description: List all scenes for a project on a branch.
-    source_operation: openapi/playcanvas-rest-openapi.yml#listScenes
-  - name: get_splat_signed_url
-    description: Request a signed S3 URL to upload a splat file.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getSplatSignedUrl
-  - name: publish_splat
-    description: Publish an uploaded splat to the SuperSplat platform.
-    source_operation: openapi/playcanvas-rest-openapi.yml#publishSplat
-  - name: get_rate_limits
-    description: Return the account's current rate-limit configuration.
-    source_operation: openapi/playcanvas-rest-openapi.yml#getRateLimits
+- name: download_app
+  description: Start a job to package an app for self-hosting.
+  source_operation: openapi/playcanvas-rest-openapi.yml#downloadApp
+- name: get_primary_app
+  description: Get the primary published app of a project.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getPrimaryApp
+- name: get_project_apps
+  description: List all published apps of a project.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getProjectApps
+- name: get_app
+  description: Get a published app by id.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getApp
+- name: create_asset
+  description: Create a new script/html/css/text/shader/json asset.
+  source_operation: openapi/playcanvas-rest-openapi.yml#createAsset
+- name: get_asset
+  description: Get the details of a single asset.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getAsset
+- name: get_asset_file
+  description: Fetch an asset file variant by filename.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getAssetFile
+- name: list_assets
+  description: List all assets in a project branch (paginated).
+  source_operation: openapi/playcanvas-rest-openapi.yml#listAssets
+- name: update_asset
+  description: Update an existing asset's file.
+  source_operation: openapi/playcanvas-rest-openapi.yml#updateAsset
+- name: delete_asset
+  description: Permanently delete an asset from a branch.
+  source_operation: openapi/playcanvas-rest-openapi.yml#deleteAsset
+- name: create_branch
+  description: Create a new branch from an existing branch/checkpoint.
+  source_operation: openapi/playcanvas-rest-openapi.yml#createBranch
+- name: list_branches
+  description: List all open branches for a project.
+  source_operation: openapi/playcanvas-rest-openapi.yml#listBranches
+- name: create_checkpoint
+  description: Start a job to create a branch checkpoint.
+  source_operation: openapi/playcanvas-rest-openapi.yml#createCheckpoint
+- name: get_checkpoint
+  description: Get a checkpoint by id.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getCheckpoint
+- name: list_checkpoints
+  description: List checkpoints for a branch, newest first.
+  source_operation: openapi/playcanvas-rest-openapi.yml#listCheckpoints
+- name: get_job
+  description: Poll an asynchronous job by id.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getJob
+- name: export_project
+  description: Start a job to export a project as a ZIP.
+  source_operation: openapi/playcanvas-rest-openapi.yml#exportProject
+- name: list_scenes
+  description: List all scenes for a project on a branch.
+  source_operation: openapi/playcanvas-rest-openapi.yml#listScenes
+- name: get_splat_signed_url
+  description: Request a signed S3 URL to upload a splat file.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getSplatSignedUrl
+- name: publish_splat
+  description: Publish an uploaded splat to the SuperSplat platform.
+  source_operation: openapi/playcanvas-rest-openapi.yml#publishSplat
+- name: get_rate_limits
+  description: Return the account's current rate-limit configuration.
+  source_operation: openapi/playcanvas-rest-openapi.yml#getRateLimits
+deployment:
+  mode: none
+  verified: derived
+  tools: 21
+  checked: '2026-08-12'
+  source: catalog MCP census

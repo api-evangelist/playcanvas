@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps Jobs API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/jobs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the job."
+              }
+            ]
+          },
+          "docs": "Poll an asynchronous job by id until its status is complete or error. The data field contents depend on the job type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

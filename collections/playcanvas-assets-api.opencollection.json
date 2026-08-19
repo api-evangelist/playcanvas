@@ -1,0 +1,227 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps Assets API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://playcanvas.com/api/assets",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "projectId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "branchId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "parent",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "preload",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "pow2",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Create a new asset. Currently supports script, html, css, text, shader and json asset types. Expects multipart/form-data. Uses an assets rate limit."
+        },
+        {
+          "info": {
+            "name": "Get asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/assets/:assetId",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the asset."
+              },
+              {
+                "name": "branchId",
+                "value": "",
+                "type": "query",
+                "description": "The id of the branch."
+              }
+            ]
+          },
+          "docs": "Get the details of a single asset."
+        },
+        {
+          "info": {
+            "name": "Update asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://playcanvas.com/api/assets/:assetId",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the asset."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "pow2",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update an existing asset's file. Supports script, html, css, text, shader and json types. Expects multipart/form-data. Uses an assets rate limit."
+        },
+        {
+          "info": {
+            "name": "Delete asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://playcanvas.com/api/assets/:assetId",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the asset."
+              },
+              {
+                "name": "branchId",
+                "value": "",
+                "type": "query",
+                "description": "The id of the branch."
+              }
+            ]
+          },
+          "docs": "Permanently delete an asset from a branch. Deletion is unrecoverable unless a checkpoint was taken."
+        },
+        {
+          "info": {
+            "name": "Get asset file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/assets/:assetId/file/:filename",
+            "params": [
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the asset."
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "path",
+                "description": "The filename of the asset."
+              },
+              {
+                "name": "branchId",
+                "value": "",
+                "type": "query",
+                "description": "The id of the branch."
+              }
+            ]
+          },
+          "docs": "Fetch a specific asset file variant by filename for a branch."
+        },
+        {
+          "info": {
+            "name": "List assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/projects/:projectId/assets",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the project."
+              },
+              {
+                "name": "branchId",
+                "value": "",
+                "type": "query",
+                "description": "The id of the branch."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of assets to skip. Defaults to 0."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of assets to list. Defaults to 16. Maximum 100000."
+              }
+            ]
+          },
+          "docs": "List all assets in a project for a specific branch (paginated)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

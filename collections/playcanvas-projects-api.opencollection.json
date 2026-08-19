@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps Projects API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://playcanvas.com/api/projects/:projectId/export",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the project."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a job to export the entire project as a ZIP. Returns job details; poll GET /jobs/{id} until complete, then read the download URL from the job data. Uses a strict rate limit."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

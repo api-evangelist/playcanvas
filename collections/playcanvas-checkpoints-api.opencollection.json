@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PlayCanvas REST Apps Checkpoints API",
+    "version": "1.0.0-beta"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checkpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create checkpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://playcanvas.com/api/checkpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a job to create a checkpoint (snapshot) of a branch. Returns job details; poll GET /jobs/{id} until complete, then read the checkpoint from the job data."
+        },
+        {
+          "info": {
+            "name": "Get checkpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/checkpoints/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the checkpoint."
+              }
+            ]
+          },
+          "docs": "Get a checkpoint by its id."
+        },
+        {
+          "info": {
+            "name": "List checkpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://playcanvas.com/api/branches/:branchId/checkpoints",
+            "params": [
+              {
+                "name": "branchId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the branch."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of checkpoints to return. Cannot exceed 50."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "A checkpoint id; only checkpoints created before it are returned."
+              }
+            ]
+          },
+          "docs": "List checkpoints for a branch, newest first. Cursor pagination: when pagination.hasMore is true, pass ?skip={lastCheckpointId} for older checkpoints."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
