@@ -56,6 +56,8 @@ apis:
   humanURL: https://developer.playcanvas.com/user-manual/api/
   baseURL: https://playcanvas.com/api
   tags:
+  - Application
+  tags_raw:
   - Apps
   properties:
   - type: OpenAPI
@@ -144,6 +146,8 @@ apis:
   humanURL: https://developer.playcanvas.com/user-manual/api/
   baseURL: https://playcanvas.com/api
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -166,6 +170,8 @@ apis:
   humanURL: https://developer.playcanvas.com/user-manual/api/
   baseURL: https://playcanvas.com/api
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -188,6 +194,8 @@ apis:
   humanURL: https://developer.playcanvas.com/user-manual/api/
   baseURL: https://playcanvas.com/api
   tags:
+  - Rate Limits
+  tags_raw:
   - RateLimits
   properties:
   - type: OpenAPI
