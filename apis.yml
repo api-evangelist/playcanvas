@@ -206,7 +206,7 @@ apis:
   humanURL: https://developer.playcanvas.com/user-manual/api/
   baseURL: https://playcanvas.com/api
   tags:
-  - Rate Limits
+  - RateLimits
   tags_raw:
   - RateLimits
   properties:
