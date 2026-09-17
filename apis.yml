@@ -202,30 +202,6 @@ apis:
     url: data-model/playcanvas-data-model.yml
   - type: Conventions
     url: conventions/playcanvas-conventions.yml
-- aid: playcanvas:playcanvas-ratelimits-api
-  name: PlayCanvas RateLimits API
-  description: Account rate-limit inspection.
-  humanURL: https://developer.playcanvas.com/user-manual/api/
-  baseURL: https://playcanvas.com/api
-  tags:
-  - Rate Limits
-  tags_raw:
-  - RateLimits
-  properties:
-  - type: OpenAPI
-    url: openapi/playcanvas-ratelimits-api-openapi.yml
-  - type: Documentation
-    url: https://developer.playcanvas.com/user-manual/api/
-  - type: Authentication
-    url: authentication/playcanvas-authentication.yml
-  - type: RateLimits
-    url: rate-limits/playcanvas-rate-limits.yml
-  - type: ErrorCatalog
-    url: errors/playcanvas-problem-types.yml
-  - type: DataModel
-    url: data-model/playcanvas-data-model.yml
-  - type: Conventions
-    url: conventions/playcanvas-conventions.yml
 - aid: playcanvas:playcanvas-scenes-api
   name: PlayCanvas Scenes API
   description: Project scenes.
@@ -258,6 +234,28 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/playcanvas-splats-api-openapi.yml
+  - type: Documentation
+    url: https://developer.playcanvas.com/user-manual/api/
+  - type: Authentication
+    url: authentication/playcanvas-authentication.yml
+  - type: RateLimits
+    url: rate-limits/playcanvas-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/playcanvas-problem-types.yml
+  - type: DataModel
+    url: data-model/playcanvas-data-model.yml
+  - type: Conventions
+    url: conventions/playcanvas-conventions.yml
+- aid: playcanvas:playcanvas-rate-limits-api
+  name: PlayCanvas Rate Limits API
+  description: Account rate-limit inspection.
+  humanURL: https://developer.playcanvas.com/user-manual/api/
+  baseURL: https://playcanvas.com/api
+  tags:
+  - Rate Limits
+  properties:
+  - type: OpenAPI
+    url: openapi/playcanvas-rate-limits-api-openapi.yml
   - type: Documentation
     url: https://developer.playcanvas.com/user-manual/api/
   - type: Authentication
