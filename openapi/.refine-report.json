@@ -1,15 +1,7 @@
 {
   "provider": "playcanvas",
   "sources": [
-    "playcanvas-apps-api-openapi.yml",
-    "playcanvas-assets-api-openapi.yml",
-    "playcanvas-branches-api-openapi.yml",
-    "playcanvas-checkpoints-api-openapi.yml",
-    "playcanvas-jobs-api-openapi.yml",
-    "playcanvas-projects-api-openapi.yml",
-    "playcanvas-ratelimits-api-openapi.yml",
-    "playcanvas-scenes-api-openapi.yml",
-    "playcanvas-splats-api-openapi.yml"
+    "_original/playcanvas-rest-openapi.yml"
   ],
   "outputs": [
     "playcanvas-apps-api-openapi.yml",
@@ -22,11 +14,28 @@
     "playcanvas-scenes-api-openapi.yml",
     "playcanvas-splats-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [
-    "playcanvas-apps-api-openapi.yml: dangling $ref: #/components/schemas/AppDownloadRequest"
+    "playcanvas-rest-openapi.yml: dangling $ref: #/components/schemas/AppDownloadRequest"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "playcanvas-rest-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: playcanvas-rate-limits-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 9 total)"
+  ],
+  "skipped": [
+    "playcanvas-apps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-branches-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-checkpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-rate-limits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-scenes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "playcanvas-splats-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

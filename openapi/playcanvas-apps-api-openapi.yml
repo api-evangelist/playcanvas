@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: PlayCanvas REST Apps API
   version: 1.0.0-beta
@@ -133,8 +133,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Forbidden:
-      description: Forbidden.
+    Unauthorized:
+      description: Unauthorized.
       content:
         application/json:
           schema:
@@ -145,8 +145,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
@@ -170,6 +170,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
   schemas:
     Job:
       type: object
@@ -195,15 +203,6 @@ components:
         data:
           type: object
           description: Contents depend on the job type.
-    Pagination:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        total:
-          type: integer
     Error:
       type: object
       properties:
@@ -255,14 +254,15 @@ components:
           format: date-time
         url:
           type: string
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: The id of the project.
-      schema:
-        type: integer
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        total:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http
