@@ -141,50 +141,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Requests allowed per minute.
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests this minute.
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: UTC epoch seconds when the window resets.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Checkpoint:
       type: object
@@ -197,15 +153,6 @@ components:
           type: string
           format: date-time
         description:
-          type: string
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        fullName:
-          type: string
-        username:
           type: string
     Job:
       type: object
@@ -231,6 +178,20 @@ components:
         data:
           type: object
           description: Contents depend on the job type.
+    CursorPagination:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        username:
+          type: string
     Error:
       type: object
       properties:
@@ -239,11 +200,50 @@ components:
           description: The error message.
       required:
       - error
-    CursorPagination:
-      type: object
-      properties:
-        hasMore:
-          type: boolean
+  responses:
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Requests allowed per minute.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests this minute.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

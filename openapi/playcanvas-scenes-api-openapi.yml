@@ -55,8 +55,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
@@ -67,8 +67,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
+    Unauthorized:
+      description: Unauthorized.
       content:
         application/json:
           schema:
@@ -92,23 +92,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: The id of the project.
-      schema:
-        type: integer
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
     Scene:
       type: object
       properties:
@@ -124,6 +108,22 @@ components:
         modified:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

@@ -236,21 +236,37 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  parameters:
+    BranchIdQueryRequired:
+      name: branchId
+      in: query
+      required: true
+      description: The id of the branch.
+      schema:
+        type: string
+    AssetId:
+      name: assetId
+      in: path
+      required: true
+      description: The id of the asset.
+      schema:
+        type: integer
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
   responses:
-    Unauthorized:
-      description: Unauthorized.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
       content:
         application/json:
           schema:
@@ -274,37 +290,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: The id of the project.
-      schema:
-        type: integer
-    BranchIdQueryRequired:
-      name: branchId
-      in: query
-      required: true
-      description: The id of the branch.
-      schema:
-        type: string
-    AssetId:
-      name: assetId
-      in: path
-      required: true
-      description: The id of the asset.
-      schema:
-        type: integer
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    Pagination:
       type: object
       properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
+        limit:
+          type: integer
+        skip:
+          type: integer
+        total:
+          type: integer
     Asset:
       type: object
       properties:
@@ -358,15 +359,14 @@ components:
               type: string
         parent:
           type: integer
-    Pagination:
+    Error:
       type: object
       properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        total:
-          type: integer
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
   securitySchemes:
     bearerAuth:
       type: http
