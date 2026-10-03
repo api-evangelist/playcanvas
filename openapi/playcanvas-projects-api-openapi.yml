@@ -53,42 +53,9 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  schemas:
-    Job:
-      type: object
-      properties:
-        id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        modified_at:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - running
-          - complete
-          - error
-        messages:
-          type: array
-          items:
-            type: string
-        data:
-          type: object
-          description: Contents depend on the job type.
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
   responses:
-    Forbidden:
-      description: Forbidden.
+    Unauthorized:
+      description: Unauthorized.
       content:
         application/json:
           schema:
@@ -99,8 +66,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
@@ -132,6 +99,39 @@ components:
       description: The id of the project.
       schema:
         type: integer
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - running
+          - complete
+          - error
+        messages:
+          type: array
+          items:
+            type: string
+        data:
+          type: object
+          description: Contents depend on the job type.
   securitySchemes:
     bearerAuth:
       type: http

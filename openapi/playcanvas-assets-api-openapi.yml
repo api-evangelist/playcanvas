@@ -236,37 +236,21 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  parameters:
-    BranchIdQueryRequired:
-      name: branchId
-      in: query
-      required: true
-      description: The id of the branch.
-      schema:
-        type: string
-    AssetId:
-      name: assetId
-      in: path
-      required: true
-      description: The id of the asset.
-      schema:
-        type: integer
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: The id of the project.
-      schema:
-        type: integer
   responses:
-    Forbidden:
-      description: Forbidden.
+    Unauthorized:
+      description: Unauthorized.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
@@ -290,22 +274,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Pagination:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        total:
-          type: integer
     Asset:
       type: object
       properties:
@@ -359,6 +328,15 @@ components:
               type: string
         parent:
           type: integer
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        total:
+          type: integer
     Error:
       type: object
       properties:
@@ -367,6 +345,28 @@ components:
           description: The error message.
       required:
       - error
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
+    AssetId:
+      name: assetId
+      in: path
+      required: true
+      description: The id of the asset.
+      schema:
+        type: integer
+    BranchIdQueryRequired:
+      name: branchId
+      in: query
+      required: true
+      description: The id of the branch.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

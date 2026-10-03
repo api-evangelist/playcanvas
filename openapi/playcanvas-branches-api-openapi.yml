@@ -100,14 +100,26 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Forbidden:
-      description: Forbidden.
+    Unauthorized:
+      description: Unauthorized.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
@@ -131,24 +143,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    CursorPagination:
-      type: object
-      properties:
-        hasMore:
-          type: boolean
     User:
       type: object
       properties:
@@ -158,6 +153,11 @@ components:
           type: string
         username:
           type: string
+    CursorPagination:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
     Error:
       type: object
       properties:

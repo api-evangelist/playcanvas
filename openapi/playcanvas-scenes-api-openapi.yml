@@ -55,8 +55,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Forbidden:
-      description: Forbidden.
+    Unauthorized:
+      description: Unauthorized.
       content:
         application/json:
           schema:
@@ -67,8 +67,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:

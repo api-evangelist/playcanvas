@@ -35,6 +35,12 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Rate limit exceeded.
       headers:
@@ -50,12 +56,6 @@ components:
           schema:
             type: integer
           description: UTC epoch seconds when the window resets.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized.
       content:
         application/json:
           schema:
