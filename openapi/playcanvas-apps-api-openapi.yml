@@ -139,14 +139,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
@@ -171,15 +171,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Pagination:
-      type: object
-      properties:
-        limit:
-          type: integer
-        skip:
-          type: integer
-        total:
-          type: integer
     App:
       type: object
       properties:
@@ -255,6 +246,15 @@ components:
         data:
           type: object
           description: Contents depend on the job type.
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+        skip:
+          type: integer
+        total:
+          type: integer
   parameters:
     ProjectId:
       name: projectId

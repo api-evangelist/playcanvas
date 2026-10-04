@@ -243,14 +243,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
@@ -328,6 +328,14 @@ components:
               type: string
         parent:
           type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
     Pagination:
       type: object
       properties:
@@ -337,29 +345,7 @@ components:
           type: integer
         total:
           type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
   parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: The id of the project.
-      schema:
-        type: integer
-    AssetId:
-      name: assetId
-      in: path
-      required: true
-      description: The id of the asset.
-      schema:
-        type: integer
     BranchIdQueryRequired:
       name: branchId
       in: query
@@ -367,6 +353,20 @@ components:
       description: The id of the branch.
       schema:
         type: string
+    AssetId:
+      name: assetId
+      in: path
+      required: true
+      description: The id of the asset.
+      schema:
+        type: integer
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

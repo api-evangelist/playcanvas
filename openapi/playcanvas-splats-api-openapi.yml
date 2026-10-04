@@ -129,6 +129,14 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
     Splat:
       type: object
       properties:
@@ -161,14 +169,6 @@ components:
           type: integer
         listed:
           type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
   securitySchemes:
     bearerAuth:
       type: http

@@ -54,44 +54,6 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Rate limit exceeded.
-      headers:
-        X-RateLimit-Limit:
-          schema:
-            type: integer
-          description: Requests allowed per minute.
-        X-RateLimit-Remaining:
-          schema:
-            type: integer
-          description: Remaining requests this minute.
-        X-RateLimit-Reset:
-          schema:
-            type: integer
-          description: UTC epoch seconds when the window resets.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Scene:
       type: object
@@ -116,6 +78,44 @@ components:
           description: The error message.
       required:
       - error
+  responses:
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Requests allowed per minute.
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests this minute.
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: UTC epoch seconds when the window resets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectId:
       name: projectId

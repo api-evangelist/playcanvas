@@ -56,14 +56,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:

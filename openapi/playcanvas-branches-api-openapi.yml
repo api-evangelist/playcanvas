@@ -99,6 +99,49 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  schemas:
+    Branch:
+      type: object
+      properties:
+        id:
+          type: string
+        projectId:
+          type: integer
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        closed:
+          type: boolean
+        permanent:
+          type: boolean
+        latestCheckpointId:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+    CursorPagination:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        username:
+          type: string
   responses:
     Unauthorized:
       description: Unauthorized.
@@ -106,8 +149,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
@@ -118,8 +161,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
@@ -143,49 +186,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        fullName:
-          type: string
-        username:
-          type: string
-    CursorPagination:
-      type: object
-      properties:
-        hasMore:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
-    Branch:
-      type: object
-      properties:
-        id:
-          type: string
-        projectId:
-          type: integer
-        name:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        closed:
-          type: boolean
-        permanent:
-          type: boolean
-        latestCheckpointId:
-          type: string
-        user:
-          $ref: '#/components/schemas/User'
   parameters:
     ProjectId:
       name: projectId

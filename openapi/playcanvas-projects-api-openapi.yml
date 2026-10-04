@@ -60,14 +60,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    Forbidden:
+      description: Forbidden.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: Forbidden.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
@@ -91,14 +91,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: The id of the project.
-      schema:
-        type: integer
   schemas:
     Error:
       type: object
@@ -132,6 +124,14 @@ components:
         data:
           type: object
           description: Contents depend on the job type.
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: The id of the project.
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http
