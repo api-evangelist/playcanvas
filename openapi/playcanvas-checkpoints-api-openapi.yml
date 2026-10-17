@@ -141,66 +141,13 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  schemas:
-    Job:
-      type: object
-      properties:
-        id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        modified_at:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - running
-          - complete
-          - error
-        messages:
-          type: array
-          items:
-            type: string
-        data:
-          type: object
-          description: Contents depend on the job type.
-    CursorPagination:
-      type: object
-      properties:
-        hasMore:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        fullName:
-          type: string
-        username:
-          type: string
-    Checkpoint:
-      type: object
-      properties:
-        id:
-          type: string
-        user:
-          $ref: '#/components/schemas/User'
-        createdAt:
-          type: string
-          format: date-time
-        description:
-          type: string
   responses:
+    BadRequest:
+      description: Invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized.
       content:
@@ -209,12 +156,6 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: Forbidden.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request.
       content:
         application/json:
           schema:
@@ -244,6 +185,65 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+    CursorPagination:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - running
+          - complete
+          - error
+        messages:
+          type: array
+          items:
+            type: string
+        data:
+          type: object
+          description: Contents depend on the job type.
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        username:
+          type: string
+    Checkpoint:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        createdAt:
+          type: string
+          format: date-time
+        description:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

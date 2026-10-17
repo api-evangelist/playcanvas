@@ -53,6 +53,39 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
+    Job:
+      type: object
+      properties:
+        id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        modified_at:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum:
+          - running
+          - complete
+          - error
+        messages:
+          type: array
+          items:
+            type: string
+        data:
+          type: object
+          description: Contents depend on the job type.
   responses:
     Unauthorized:
       description: Unauthorized.
@@ -91,39 +124,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
-    Job:
-      type: object
-      properties:
-        id:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        modified_at:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - running
-          - complete
-          - error
-        messages:
-          type: array
-          items:
-            type: string
-        data:
-          type: object
-          description: Contents depend on the job type.
   parameters:
     ProjectId:
       name: projectId

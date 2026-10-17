@@ -100,6 +100,23 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        username:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The error message.
+      required:
+      - error
     Branch:
       type: object
       properties:
@@ -125,24 +142,13 @@ components:
       properties:
         hasMore:
           type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: The error message.
-      required:
-      - error
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        fullName:
-          type: string
-        username:
-          type: string
   responses:
+    BadRequest:
+      description: Invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized.
       content:
@@ -151,12 +157,6 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: Forbidden.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request.
       content:
         application/json:
           schema:
